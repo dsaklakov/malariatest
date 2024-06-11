@@ -6,7 +6,7 @@ import numpy as np
 import os
 
 # Define the Google Drive file ID
-file_id = '1kTCFJfh754rhkE9LR6GVM8S4-HsloOKs'
+file_id = '1jyQqApyt9zSKiHPk-zDiXituTxajV8Bn'
 model_path = 'vgg16_model.h5'
 
 # Download the model from Google Drive if it does not exist locally
@@ -39,4 +39,5 @@ if uploaded_file is not None:
         st.write("The cell is **infected** by malaria.")
     else:
         st.write("The cell is **not infected** by malaria.")
+
 
