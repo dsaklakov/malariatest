@@ -1,3 +1,6 @@
 streamlit
 gdown
 tensorflow
+numpy
+pillow
+
