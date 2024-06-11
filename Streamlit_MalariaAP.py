@@ -14,14 +14,17 @@ model_path = 'vgg16_model.h5'
 if not os.path.exists(model_path):
     gdown.download(f'https://drive.google.com/uc?export=download&id={file_id}', model_path, quiet=False)
 
+# Confirm file download
+print(f"File exists: {os.path.exists(model_path)}")
+
 # Load the model
 model = tf.keras.models.load_model(model_path)
 
 def predict_malaria(img):
-    img = img.resize((224, 224))  # Resize the image
+    img = img.resize((224, 224))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array /= 255.0  # Normalize the image
+    img_array /= 255.0
     prediction = model.predict(img_array)
     return prediction
 
