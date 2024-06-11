@@ -19,15 +19,8 @@ print(f"File exists: {os.path.exists(model_path)}")
 # Load the model
 model = tf.keras.models.load_model(model_path)
 
-# Download the model from Google Drive if it does not exist locally
-if not os.path.exists(model_path):
-    gdown.download(f'https://drive.google.com/uc?export=download&id={file_id}', model_path, quiet=False)
-
-# Load the model
-model = tf.keras.models.load_model(model_path)
-
-def predict_malaria(img_path):
-    img = image.load_img(img_path, target_size=(224, 224))
+def predict_malaria(img):
+    img = image.load_img(img, target_size=(224, 224))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array /= 255.0
@@ -44,11 +37,17 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption='Uploaded Image', use_column_width=True)
     st.write("")
     st.write("Classifying...")
-    prediction = predict_malaria(uploaded_file)
+
+    # Convert the uploaded file to an image format
+    with open("temp_image.jpg", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    
+    prediction = predict_malaria("temp_image.jpg")
     if prediction[0][0] > 0.5:
         st.write("The cell is **infected** by malaria.")
     else:
         st.write("The cell is **not infected** by malaria.")
+
 
 
 
