@@ -13,6 +13,16 @@ model_path = 'vgg16_model.h5'
 if not os.path.exists(model_path):
     gdown.download(f'https://drive.google.com/uc?export=download&id={file_id}', model_path, quiet=False)
 
+# Confirm file download
+print(f"File exists: {os.path.exists(model_path)}")
+
+# Load the model
+model = tf.keras.models.load_model(model_path)
+
+# Download the model from Google Drive if it does not exist locally
+if not os.path.exists(model_path):
+    gdown.download(f'https://drive.google.com/uc?export=download&id={file_id}', model_path, quiet=False)
+
 # Load the model
 model = tf.keras.models.load_model(model_path)
 
@@ -39,5 +49,7 @@ if uploaded_file is not None:
         st.write("The cell is **infected** by malaria.")
     else:
         st.write("The cell is **not infected** by malaria.")
+
+
 
 
